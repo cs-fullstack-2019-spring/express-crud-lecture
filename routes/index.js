@@ -9,12 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/results', (req,res)=>{
 
-  // console.log(req.query.idLabel);
-  // userId: Number,
-  //     id: Number,
-  //     title: String,
-  //     completed: {type:Boolean, default: false},
-
   ToDoCollection.create(
       {
         userId: req.query.idLabel,
@@ -26,7 +20,21 @@ router.get('/results', (req,res)=>{
         else res.send("Added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       }
   );
+});
 
+router.get('/find', (req, res)=>{
+  res.render('find')
+});
+
+router.get('/findById/', (req,res)=>{
+  ToDoCollection.find({userId: req.query.findId},
+      (error, results)=>{
+        if(error) res.send(error);
+        else {
+          console.log(results);
+          res.render("results", {entries: results});
+        }
+      })
 });
 
 module.exports = router;

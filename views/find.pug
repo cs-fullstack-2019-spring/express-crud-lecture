@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    h1 Find The ToDo items for a user
+
+    form(method='GET' action='/findById')
+        p
+            label(for='findId') User ID:
+            input(type='text', id='findId', name='findId')
+        button Submit
