@@ -7,13 +7,14 @@ var lectureData = require('./routes/lectureData');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var searchRouter = require('./routes/search');
 
 var app = express();
 
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = '';
+var mongoDB = 'mongodb+srv://admin:admin@cluster0-eonhb.mongodb.net/mongoTest?retryWrites=true';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -31,7 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/lectureData', lectureData);
+app.use('/lectureData', lectureData);
+app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
